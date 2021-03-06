@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="java.io.PrintWriter" %>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 <jsp:useBean id="bbs" class="bbs.Bbs" scope="page" />
 <jsp:setProperty name="bbs" property="bbsTitle" />
 <jsp:setProperty name="bbs" property="bbsContent" />
@@ -18,7 +20,7 @@
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
-		if (userID != null) {
+		if (userID == null) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인을 하세요.')");
@@ -37,7 +39,7 @@
 						if (result == -1) {
 							PrintWriter script = response.getWriter();
 							script.println("<script>");
-							script.println("alert('이미 존재하는 아이디입니다.')");
+							script.println("alert('글쓰기에 실패했습니다.')");
 							script.println("history.back()");
 							script.println("</script>");
 						}
@@ -48,11 +50,8 @@
 							script.println("</script>");
 					}
 			
-		}
-	
-		
-		}
-		
+				}	
+		}		
 	%>
 </body>
 </html>
